@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Surface Level</string>
+    <string name="background_color">Background Color</string>
+    <string name="center_reference">Center Reference Image</string>
+</resources>
