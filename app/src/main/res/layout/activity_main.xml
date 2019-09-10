@@ -8,48 +8,84 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.github.dinceruur.androidSurfaceLevel.CustomView.Circle
             android:id="@+id/circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            CircleView:circleViewOutCircleColor="#A6A2C2FB"
             CircleView:circleViewInCircleColor="#FFFFFF"
             CircleView:circleViewInRadius="40"
-            CircleView:circleViewPadding="100"
-            />
+            CircleView:circleViewOutCircleColor="#A6A2C2FB"
+            CircleView:circleViewPadding="100" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_center"
             android:layout_gravity="center"
-            android:contentDescription="@string/center_reference" />
+            android:contentDescription="@string/center_reference"
+            app:srcCompat="@drawable/ic_center" />
 
         <com.github.dinceruur.androidSurfaceLevel.CustomView.MaskView
             android:id="@+id/maskView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            MaskView:maskViewPadding="100"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            MaskView:maskViewPadding="100"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/angleX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/x_axis"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/angleY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/y_axis"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

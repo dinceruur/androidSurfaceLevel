@@ -1,6 +1,7 @@
 package com.github.dinceruur.androidSurfaceLevel.CustomView;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,16 +9,19 @@ import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 import com.github.dinceruur.androidSurfaceLevel.InterFaces.SensorInterFace;
+import com.github.dinceruur.androidSurfaceLevel.MainActivity;
 import com.github.dinceruur.androidSurfaceLevel.R;
 import com.github.dinceruur.androidSurfaceLevel.Sensors.SensorListener;
 
-
 public class Circle extends View implements SensorInterFace {
-
+    Resources resources;
+    MainActivity mainActivity;
+    TextView    angleX;
+    TextView    angleY;
     private SensorListener  fastestListener;
     private int padding;
     private int inRadius;
@@ -49,13 +53,22 @@ public class Circle extends View implements SensorInterFace {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        String textX = String.format(resources.getString(R.string.x_axis), - angle[1]);
+        String textY = String.format(resources.getString(R.string.y_axis), angle[2]);
+
+        angleX = mainActivity.findViewById(R.id.angleX);
+        angleY = mainActivity.findViewById(R.id.angleY);
+
+        if(angleX != null && angleY != null){
+            angleX.setText(textX);
+            angleY.setText(textY);
+        }
+
         if (!isRunning){
             this.isRunning = true;
             initializeFastestListener();
             inPaint     = new Paint();
             outPaint    = new Paint();
-
-            Log.wtf("width",String.valueOf(getWidth()));
         }
 
         inPaint.setColor(Color.parseColor(inColor));
@@ -63,8 +76,11 @@ public class Circle extends View implements SensorInterFace {
         inPaint.setStyle(Paint.Style.FILL);
         outPaint.setStyle(Paint.Style.FILL);
 
-        float x = (float) getWidth() / 2;
-        float y = (float) getHeight() / 2;
+        float width     = getWidth();
+        float height    = getHeight();
+
+        float x =  width / 2;
+        float y =  height / 2;
         float min = Math.min(x,y);
 
         float outRad;
@@ -115,17 +131,13 @@ public class Circle extends View implements SensorInterFace {
     }
 
     private void getAttributes(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleView, 0, 0);
+        TypedArray typedArray   = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleView, 0, 0);
+        resources               = context.getApplicationContext().getResources();
         try {
             inColor     = typedArray.getString(R.styleable.CircleView_circleViewInCircleColor);
             outColor    = typedArray.getString(R.styleable.CircleView_circleViewOutCircleColor);
             padding     = typedArray.getInteger(R.styleable.CircleView_circleViewPadding,100);
             inRadius    = dpToPx(typedArray.getInteger(R.styleable.CircleView_circleViewInRadius,250));
-
-
-            Log.wtf("checkMe",String.valueOf(inRadius));
-
-
         } finally {
             typedArray.recycle();
         }
@@ -133,5 +145,9 @@ public class Circle extends View implements SensorInterFace {
 
     public int dpToPx(float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ctx.getResources().getDisplayMetrics());
+    }
+
+    public void setCallerContext(MainActivity activity){
+        this.mainActivity = activity;
     }
 }

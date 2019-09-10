@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageView;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -18,7 +16,6 @@ public class SplashScreen extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
 
 
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);

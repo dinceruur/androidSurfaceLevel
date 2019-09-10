@@ -54,7 +54,6 @@ public class MaskView extends View {
         super.onDraw(canvas);
 
         mPath.reset();
-        //setZ(100);
         float w = (float) getWidth() / 2;
         float h = (float) getHeight() / 2;
         float rad = Math.min(w,h) - padding;
